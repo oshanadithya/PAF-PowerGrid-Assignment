@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("myresource")
+@Path("/myresource")
 public class MyResource {
 
     /**
@@ -18,6 +18,7 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
+    @Path("/")
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
         return "Got it!";
