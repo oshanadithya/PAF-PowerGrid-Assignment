@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DBConnect {
 	
-	private static String url = "jdbc:mysql://localhost:3306/packages";
+	private static String url = "jdbc:mysql://localhost:3306/powergridComp";
 	private static String user = "root";
 	private static String pass = "oshan@0765649523";
 	public static Connection con;
