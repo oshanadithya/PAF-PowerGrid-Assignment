@@ -6,7 +6,7 @@
 	if (request.getParameter("itemCode") != null)
 	{
 		DBHandle itemObj = new DBHandle();
-		itemObj.connect();
+		//itemObj.connect();
 		
 		String stsMsg = itemObj.insertComplaint(request.getParameter("name"),
 			request.getParameter("email"),
