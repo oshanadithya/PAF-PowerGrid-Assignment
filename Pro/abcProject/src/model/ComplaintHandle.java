@@ -12,7 +12,7 @@ public class ComplaintHandle {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			con= DriverManager.getConnection("jdbc:mysql://localhost:3306/powergridcomp",
+			con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/powergridcomp",
 			"root", "oshan@0765649523");
 			//For testing
 			System.out.print("Successfully connected");
@@ -74,7 +74,7 @@ public class ComplaintHandle {
 			output = "<table border='1'><tr><th>Name</th>" +
 			"<th>Email</th>" +
 			"<th>Contact</th>" +
-			"<th>Complaint</th><th>Remove</th></tr>";
+			"<th>Complaint</th></tr>";
 			String query = "select * from complaints";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -111,6 +111,6 @@ public class ComplaintHandle {
 			output = "Error while reading the items.";
 			System.err.println(e.getMessage());
 		}
-		return null;
+		return output;
 	}
 }
