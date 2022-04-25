@@ -7,6 +7,6 @@
 <title>PowerGrid</title>
 </head>
 <body>
-	<h2>Lol</h2>
+	<h2>PowerGrid System</h2>
 </body>
 </html>
