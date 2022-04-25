@@ -24,9 +24,9 @@ public class ComplaintHandle {
 		return con;
 	}
 	
-	public String insertComplaint(String name, String email, String contact, String complaint)
-	{
+	public String insertComplaint (String name, String email, String contact, String complaint) {
 		String output = "";
+		int n = 2;
 		try
 		{
 			Connection con = connect();
@@ -42,7 +42,7 @@ public class ComplaintHandle {
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			// binding values
-			preparedStmt.setInt(1, 1);
+			preparedStmt.setInt(1, n + 1);
 			preparedStmt.setString(2, name);
 			preparedStmt.setString(3, email);
 			preparedStmt.setString(4, contact);
@@ -52,6 +52,7 @@ public class ComplaintHandle {
 			preparedStmt.execute();
 			con.close();
 			output = "Inserted successfully";
+			
 		}
 		catch (Exception e)
 		{
@@ -110,6 +111,42 @@ public class ComplaintHandle {
 		catch (Exception e)
 		{
 			output = "Error while reading the items.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+	
+	public String updateComplaints (String ID, String name, String email, String contact, String complaint) {
+		
+	String output = "";
+	
+	try	{
+		
+		Connection con = connect();
+		
+		if (con == null) {
+			return "Error while connecting to the database for updating."; 
+		}
+		
+		// create a prepared statement
+		String query = "UPDATE complaints SET name=?, email=?, contact=?, complaint=? WHERE idcomplaints=?";
+		
+		PreparedStatement preparedStmt = con.prepareStatement(query);
+			
+		// binding values
+		preparedStmt.setString(1, name);
+		preparedStmt.setString(2, email);
+		preparedStmt.setString(3, contact);
+		preparedStmt.setString(4, complaint);
+		preparedStmt.setInt(5, Integer.parseInt(ID));
+			
+		// execute the statement
+		preparedStmt.execute();
+		con.close();
+		output = "Updated successfully";
+	}
+		catch (Exception e) {
+			output = "Error while updating the item.";
 			System.err.println(e.getMessage());
 		}
 		return output;

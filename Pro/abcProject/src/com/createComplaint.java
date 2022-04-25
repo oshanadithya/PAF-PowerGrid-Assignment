@@ -36,5 +36,28 @@ public class createComplaint {
 		String output = compObj.insertComplaint(name, email, contact, complaint);
 		return output ;
 	}
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateComplaints (String compData) {
+		
+		//Convert the input string to a JSON object
+		JsonObject compObject = new JsonParser().parse(compData).getAsJsonObject();
+		
+		//Read the values from the JSON object
+		String idcomplaints = compObject.get("idcomplaints").getAsString();
+		String name = compObject.get("name").getAsString();
+		String email = compObject.get("email").getAsString();
+		String contact = compObject.get("contact").getAsString();
+		String complaint = compObject.get("complaint").getAsString();
+		
+		String output = compObj.updateComplaints(idcomplaints, name, email, contact, complaint);
+		
+		return output;
+	}
+	
+	
 
 }
