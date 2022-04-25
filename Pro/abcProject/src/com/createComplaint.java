@@ -26,5 +26,15 @@ public class createComplaint {
 	{
 		return compObj.readComplaints();
 	}
+	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertComplaint(@FormParam("name")String name, @FormParam("email")String email, @FormParam("contact")String contact, @FormParam("complaint")String complaint)	{
+		
+		String output = compObj.insertComplaint(name, email, contact, complaint);
+		return output ;
+	}
 
 }

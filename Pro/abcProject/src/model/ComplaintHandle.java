@@ -36,12 +36,13 @@ public class ComplaintHandle {
 			}
 			
 			// create a prepared statement
-			String query = " insert into  (`idcomplaints`,`name`,`email`,`contact`,'complaint')"
+			String query = " insert into complaints (`idcomplaints`,`name`,`email`,`contact`,`complaint`)"
 			+ " values (?, ?, ?, ?, ?)";
+			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			// binding values
-			preparedStmt.setInt(1, 0);
+			preparedStmt.setInt(1, 1);
 			preparedStmt.setString(2, name);
 			preparedStmt.setString(3, email);
 			preparedStmt.setString(4, contact);
@@ -57,7 +58,7 @@ public class ComplaintHandle {
 			output = "Error while inserting";
 			System.err.println(e.getMessage());
 		}
-	return output;
+		return output;
 	}
 
 	public String readComplaints() {
