@@ -22,8 +22,7 @@ public class createComplaint {
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
-	public String readComplaints()
-	{
+	public String readComplaints() {
 		return compObj.readComplaints();
 	}
 	
@@ -33,7 +32,8 @@ public class createComplaint {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertComplaint(@FormParam("name")String name, @FormParam("email")String email, @FormParam("contact")String contact, @FormParam("complaint")String complaint)	{
 		
-		String output = compObj.insertComplaint(name, email, contact, complaint);
+		String output = compObj.insertComplaints(name, email, contact, complaint);
+		
 		return output ;
 	}
 	
@@ -58,6 +58,22 @@ public class createComplaint {
 		return output;
 	}
 	
-	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteItem(String compData) {
+		
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(compData, "", Parser.xmlParser());
+		
+		//Read the value from the element <itemID>
+		String idcomplaints = doc.select("idcomplaints").text();
+		
+		String output = compObj.deleteComplaints(idcomplaints);
+		
+		return output;
+		
+	}
 
 }

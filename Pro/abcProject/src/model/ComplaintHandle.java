@@ -6,14 +6,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class ComplaintHandle {
+	
 	private Connection connect()
 	{
 		Connection con = null;
+		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/powergridcomp",
 			"root", "oshan@0765649523");
+			
 			//For testing
 			System.out.print("Successfully connected");
 		}
@@ -24,7 +27,7 @@ public class ComplaintHandle {
 		return con;
 	}
 	
-	public String insertComplaint (String name, String email, String contact, String complaint) {
+	public String insertComplaints (String name, String email, String contact, String complaint) {
 		String output = "";
 		int n = 2;
 		try
@@ -62,13 +65,11 @@ public class ComplaintHandle {
 		return output;
 	}
 
-	public String readComplaints() {
+	public String readComplaints () {
 		String output = "";
-		try
-		{
+		try {
 			Connection con = connect();
-			if (con == null)
-			{
+			if (con == null) {
 				return "Error while connecting to the database for reading."; 
 			}
 			
@@ -77,6 +78,7 @@ public class ComplaintHandle {
 			"<th>Email</th>" +
 			"<th>Contact</th>" +
 			"<th>Complaint</th></tr>";
+			
 			String query = "select * from complaints";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -116,7 +118,7 @@ public class ComplaintHandle {
 		return output;
 	}
 	
-	public String updateComplaints (String ID, String name, String email, String contact, String complaint) {
+	public String updateComplaints (String idcomplaints, String name, String email, String contact, String complaint) {
 		
 	String output = "";
 	
@@ -138,11 +140,12 @@ public class ComplaintHandle {
 		preparedStmt.setString(2, email);
 		preparedStmt.setString(3, contact);
 		preparedStmt.setString(4, complaint);
-		preparedStmt.setInt(5, Integer.parseInt(ID));
+		preparedStmt.setInt(5, Integer.parseInt(idcomplaints));
 			
 		// execute the statement
 		preparedStmt.execute();
 		con.close();
+		
 		output = "Updated successfully";
 	}
 		catch (Exception e) {
@@ -150,5 +153,37 @@ public class ComplaintHandle {
 			System.err.println(e.getMessage());
 		}
 		return output;
+	}
+	
+	public String deleteComplaints (String idcomplaints) {
+		
+	String output = "";
+	
+	try {
+		
+		Connection con = connect();
+		
+		if (con == null) {
+			return "Error while connecting to the database for deleting."; 
+		}
+	
+		// create a prepared statement
+		String query = "delete from complaints where idcomplaints=?";
+		
+		PreparedStatement preparedStmt = con.prepareStatement(query);
+		
+		// binding values
+		preparedStmt.setInt(1, Integer.parseInt(idcomplaints));
+		
+		// execute the statement
+		preparedStmt.execute();
+		con.close();
+		output = "Deleted successfully";
+	}
+	catch (Exception e) {
+		output = "Error while deleting the item.";
+		System.err.println(e.getMessage());
+	}
+	return output;
 	}
 }
