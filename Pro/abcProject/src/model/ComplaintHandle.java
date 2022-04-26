@@ -181,7 +181,7 @@ public class ComplaintHandle {
 		output = "Deleted successfully";
 	}
 	catch (Exception e) {
-		output = "Error while deleting the item.";
+		output = "Error while deleting the complaint request!.";
 		System.err.println(e.getMessage());
 	}
 	return output;
